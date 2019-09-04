@@ -18,7 +18,6 @@ stackMethods.push = function(value) {
 
 stackMethods.pop = function() {
   var removeKey = parseInt(Object.keys(this).slice(0, Object.keys(this).length - Object.keys(stackMethods).length).pop());
-  // return popped item
   var removeItem = this[removeKey];
   delete this[removeKey];
   return removeItem;

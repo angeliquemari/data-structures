@@ -5,22 +5,20 @@ var Queue = function() {
 };
 
 Queue.prototype.enqueue = function(value) {
-  var keys = Object.keys(this);
-  keys.pop();
-  var newKey = parseInt(keys.pop()) + 1;
+  var newKey = parseInt(Object.keys(this.storage).pop()) + 1;
   if (isNaN(newKey)) {
     newKey = 0;
   }
-  this[newKey] = value;
+  this.storage[newKey] = value;
 };
 
 Queue.prototype.dequeue = function() {
-  var removeKey = Object.keys(this).shift();
-  var removeItem = this[removeKey];
-  delete this[removeKey];
+  var removeKey = Object.keys(this.storage).shift();
+  var removeItem = this.storage[removeKey];
+  delete this.storage[removeKey];
   return removeItem;
 };
 
 Queue.prototype.size = function() {
-  return Math.max(0, Object.keys(this).length - 1);
+  return Object.keys(this.storage).length;
 };

@@ -11,14 +11,12 @@ var Stack = function() {
       newKey = 0;
     }
     storage[newKey] = value;
-    someInstance[newKey] = value;
   };
 
   someInstance.pop = function() {
     var removeKey = Object.keys(storage).pop();
     var returnItem = storage[removeKey];
     delete storage[removeKey];
-    delete someInstance[removeKey];
     return returnItem;
   };
 

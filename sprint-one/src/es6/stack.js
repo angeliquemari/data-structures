@@ -6,26 +6,22 @@ class Stack {
   }
 
   push (value) {
-    var keys = Object.keys(this);
-    keys.pop();
-    var newKey = parseInt(keys.pop()) + 1;
+    var newKey = parseInt(Object.keys(this.storage).pop()) + 1;
     if (isNaN(newKey)) {
       newKey = 0;
     }
-    this[newKey] = value;
+    this.storage[newKey] = value;
   }
 
   pop () {
-    var keys = Object.keys(this);
-    keys.pop();
-    var removeKey = parseInt(keys.pop());
-    var removeItem = this[removeKey];
-    delete this[removeKey];
+    var removeKey = parseInt(Object.keys(this.storage).pop());
+    var removeItem = this.storage[removeKey];
+    delete this.storage[removeKey];
     return removeItem;
   }
 
   size () {
-    return Math.max(0, Object.keys(this).length - 1);
+    return Object.keys(this.storage).length;
   }
 
 }

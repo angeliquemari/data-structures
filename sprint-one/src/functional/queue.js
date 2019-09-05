@@ -12,14 +12,12 @@ var Queue = function() {
       newKey = 0;
     }
     storage[newKey] = value;
-    someInstance[newKey] = value;
   };
 
   someInstance.dequeue = function() {
     var removeKey = Object.keys(storage).shift();
     var returnItem = storage[removeKey];
     delete storage[removeKey];
-    delete someInstance[removeKey];
     return returnItem;
   };
 

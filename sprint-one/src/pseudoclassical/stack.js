@@ -5,24 +5,20 @@ var Stack = function() {
 };
 
 Stack.prototype.push = function(value) {
-  var keys = Object.keys(this);
-  keys.pop();
-  var newKey = parseInt(keys.pop()) + 1;
+  var newKey = parseInt(Object.keys(this.storage).pop()) + 1;
   if (isNaN(newKey)) {
     newKey = 0;
   }
-  this[newKey] = value;
+  this.storage[newKey] = value;
 };
 
 Stack.prototype.pop = function() {
-  var keys = Object.keys(this);
-  keys.pop();
-  var removeKey = keys.pop();
-  var removeItem = this[removeKey];
-  delete this[removeKey];
+  var removeKey = Object.keys(this.storage).pop();
+  var removeItem = this.storage[removeKey];
+  delete this.storage[removeKey];
   return removeItem;
 };
 
 Stack.prototype.size = function() {
-  return Object.keys(this).length - 1;
+  return Object.keys(this.storage).length;
 };

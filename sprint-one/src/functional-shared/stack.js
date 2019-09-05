@@ -2,6 +2,7 @@ var Stack = function() {
   // Hey! Rewrite in the new style. Your code will wind up looking very similar,
   // but try not not reference your old code in writing the new style.
   var newStack = {};
+  newStack.storage = {};
   _.extend(newStack, stackMethods);
   return newStack;
 };
@@ -9,20 +10,20 @@ var Stack = function() {
 var stackMethods = {};
 
 stackMethods.push = function(value) {
-  var newKey = parseInt(Object.keys(this).slice(0, Object.keys(this).length - Object.keys(stackMethods).length).pop()) + 1;
+  var newKey = parseInt(Object.keys(this.storage).pop()) + 1;
   if (isNaN(newKey)) {
     newKey = 0;
   }
-  this[newKey] = value;
+  this.storage[newKey] = value;
 };
 
 stackMethods.pop = function() {
-  var removeKey = parseInt(Object.keys(this).slice(0, Object.keys(this).length - Object.keys(stackMethods).length).pop());
-  var removeItem = this[removeKey];
-  delete this[removeKey];
+  var removeKey = parseInt(Object.keys(this.storage).pop());
+  var removeItem = this.storage[removeKey];
+  delete this.storage[removeKey];
   return removeItem;
 };
 
 stackMethods.size = function() {
-  return Object.keys(this).length - Object.keys(stackMethods).length;
+  return Object.keys(this.storage).length;
 };

@@ -1,10 +1,13 @@
 var Queue = function() {
   // Hey! Rewrite in the new style. Your code will wind up looking very similar,
   // but try not not reference your old code in writing the new style.
+  this.storage = {};
 };
 
 Queue.prototype.enqueue = function(value) {
-  var newKey = parseInt(Object.keys(this).pop()) + 1;
+  var keys = Object.keys(this);
+  keys.pop();
+  var newKey = parseInt(keys.pop()) + 1;
   if (isNaN(newKey)) {
     newKey = 0;
   }
@@ -19,5 +22,5 @@ Queue.prototype.dequeue = function() {
 };
 
 Queue.prototype.size = function() {
-  return Object.keys(this).length;
+  return Math.max(0, Object.keys(this).length - 1);
 };

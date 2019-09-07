@@ -35,8 +35,6 @@ Graph.prototype.removeNode = function(node) {
   }
 
   delete this.storage[node];
-
-
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
@@ -70,6 +68,11 @@ Graph.prototype.forEachNode = function(cb) {
   }
 };
 
+// Added function
+Graph.prototype.countOfEdges = function(node) {
+  return this.storage[node].connectedNodes.length;
+};
+
 /*
  * Complexity: What is the time complexity of the above functions?
  * addNode = O(1)
@@ -78,5 +81,5 @@ Graph.prototype.forEachNode = function(cb) {
  * hasEdge = O(n) because in the worse case a node has an edge with every other node in the graph
  * addEdge = O(1)
  * removeEdge = O(1)
- * foreachNode = O(n)
+ * forEachNode = O(n)
  */

@@ -12,12 +12,15 @@ BinarySearchTree.methods.insert = function(value) {
   var newBST = new BinarySearchTree(value);
 
   var direction;
+  if (typeof newBST.value !== typeof this.value) {
+    throw new Error('type of input value conflicts with existing values');
+  } else if (newBST.value === this.value) {
+    throw new Error('input value already in tree');
+  }
   if (newBST.value < this.value) {
     direction = 'left';
   } else if (newBST.value > this.value) {
     direction = 'right';
-  } else {
-    return new Error('input value already in tree');
   }
 
   if (this[direction] === undefined) {

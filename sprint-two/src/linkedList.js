@@ -21,7 +21,12 @@ var LinkedList = function() {
   list.removeHead = function() {
     var oldHeadNode = list.head.value;
     var newHeadPosition = list.head.next;
-    list.head = list[newHeadPosition];
+    if (newHeadPosition === null) {
+      list.head = null;
+      list.tail = null;
+    } else {
+      list.head = list[newHeadPosition];
+    }
     return oldHeadNode;
   };
 

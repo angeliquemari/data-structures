@@ -3,26 +3,27 @@ var Queue = function() {
   // but try not not reference your old code in writing the new style.
   var newQueue = Object.create(queueMethods);
   newQueue.storage = {};
+  newQueue.counterLowerLimit = 0;
+  newQueue.counterUpperLimit = 0;
   return newQueue;
 };
 
 var queueMethods = {};
 
 queueMethods.enqueue = function (value) {
-  var newKey = parseInt(Object.keys(this.storage).pop()) + 1;
-  if (isNaN(newKey)) {
-    newKey = 0;
-  }
-  this.storage[newKey] = value;
+  this.storage[this.counterUpperLimit] = value;
+  this.counterUpperLimit++;
 };
 
 queueMethods.dequeue = function () {
-  var removeKey = Object.keys(this.storage).shift();
-  var removeItem = this.storage[removeKey];
-  delete this.storage[removeKey];
-  return removeItem;
+  if (this.counterUpperLimit - this.counterLowerLimit > 0) {
+    var returnItem = this.storage[this.counterLowerLimit];
+    delete this.storage[this.counterLowerLimit];
+    this.counterLowerLimit++;
+    return returnItem;
+  }
 };
 
 queueMethods.size = function () {
-  return Object.keys(this.storage).length;
+  return this.counterUpperLimit - this.counterLowerLimit;
 };

@@ -3,26 +3,27 @@ var Queue = function() {
 
   // Use an object with numeric keys to store values
   var storage = {};
+  var counterLowerLimit = 0;
+  var counterUpperLimit = 0;
 
   // Implement the methods below
 
   someInstance.enqueue = function(value) {
-    var newKey = parseInt(Object.keys(storage).pop()) + 1;
-    if (isNaN(newKey)) {
-      newKey = 0;
-    }
-    storage[newKey] = value;
+    storage[counterUpperLimit] = value;
+    counterUpperLimit++;
   };
 
   someInstance.dequeue = function() {
-    var removeKey = Object.keys(storage).shift();
-    var returnItem = storage[removeKey];
-    delete storage[removeKey];
-    return returnItem;
+    if (counterUpperLimit - counterLowerLimit > 0) {
+      var returnItem = storage[counterLowerLimit];
+      delete storage[counterLowerLimit];
+      counterLowerLimit++;
+      return returnItem;
+    }
   };
 
   someInstance.size = function() {
-    return Object.keys(storage).length;
+    return counterUpperLimit - counterLowerLimit;
   };
 
   return someInstance;

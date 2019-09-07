@@ -2,23 +2,24 @@ var Queue = function() {
   // Hey! Rewrite in the new style. Your code will wind up looking very similar,
   // but try not not reference your old code in writing the new style.
   this.storage = {};
+  this.counterLowerLimit = 0;
+  this.counterUpperLimit = 0;
 };
 
 Queue.prototype.enqueue = function(value) {
-  var newKey = parseInt(Object.keys(this.storage).pop()) + 1;
-  if (isNaN(newKey)) {
-    newKey = 0;
-  }
-  this.storage[newKey] = value;
+  this.storage[this.counterUpperLimit] = value;
+  this.counterUpperLimit++;
 };
 
 Queue.prototype.dequeue = function() {
-  var removeKey = Object.keys(this.storage).shift();
-  var removeItem = this.storage[removeKey];
-  delete this.storage[removeKey];
-  return removeItem;
+  if (this.counterUpperLimit - this.counterLowerLimit > 0) {
+    var returnItem = this.storage[this.counterLowerLimit];
+    delete this.storage[this.counterLowerLimit];
+    this.counterLowerLimit++;
+    return returnItem;
+  }
 };
 
 Queue.prototype.size = function() {
-  return Object.keys(this.storage).length;
+  return this.counterUpperLimit - this.counterLowerLimit;
 };

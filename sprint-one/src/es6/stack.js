@@ -3,25 +3,25 @@ class Stack {
   // but try not not reference your old code in writing the new style.
   constructor() {
     this.storage = {};
+    this.counter = 0;
   }
 
   push (value) {
-    var newKey = parseInt(Object.keys(this.storage).pop()) + 1;
-    if (isNaN(newKey)) {
-      newKey = 0;
-    }
-    this.storage[newKey] = value;
+    this.storage[this.counter] = value;
+    this.counter++;
   }
 
   pop () {
-    var removeKey = parseInt(Object.keys(this.storage).pop());
-    var removeItem = this.storage[removeKey];
-    delete this.storage[removeKey];
-    return removeItem;
+    if (this.counter > 0) {
+      this.counter--;
+      var returnItem = this.storage[this.counter];
+      delete this.storage[this.counter];
+      return returnItem;
+    }
   }
 
   size () {
-    return Object.keys(this.storage).length;
+    return this.counter;
   }
 
 }

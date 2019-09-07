@@ -3,6 +3,7 @@ var Stack = function() {
   // but try not not reference your old code in writing the new style.
   var newStack = {};
   newStack.storage = {};
+  newStack.counter = 0;
   _.extend(newStack, stackMethods);
   return newStack;
 };
@@ -10,20 +11,19 @@ var Stack = function() {
 var stackMethods = {};
 
 stackMethods.push = function(value) {
-  var newKey = parseInt(Object.keys(this.storage).pop()) + 1;
-  if (isNaN(newKey)) {
-    newKey = 0;
-  }
-  this.storage[newKey] = value;
+  this.storage[this.counter] = value;
+  this.counter++;
 };
 
 stackMethods.pop = function() {
-  var removeKey = parseInt(Object.keys(this.storage).pop());
-  var removeItem = this.storage[removeKey];
-  delete this.storage[removeKey];
-  return removeItem;
+  if (this.counter > 0) {
+    this.counter--;
+    var returnItem = this.storage[this.counter];
+    delete this.storage[this.counter];
+    return returnItem;
+  }
 };
 
 stackMethods.size = function() {
-  return Object.keys(this.storage).length;
+  return this.counter;
 };

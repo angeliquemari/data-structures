@@ -3,25 +3,25 @@ var Stack = function() {
 
   // Use an object with numeric keys to store values
   var storage = {};
+  var counter = 0;
 
   // Implement the methods below
   someInstance.push = function(value) {
-    var newKey = parseInt(Object.keys(storage).pop()) + 1;
-    if (isNaN(newKey)) {
-      newKey = 0;
-    }
-    storage[newKey] = value;
+    storage[counter] = value;
+    counter++;
   };
 
   someInstance.pop = function() {
-    var removeKey = Object.keys(storage).pop();
-    var returnItem = storage[removeKey];
-    delete storage[removeKey];
-    return returnItem;
+    if (counter > 0) {
+      counter--;
+      var returnItem = storage[counter];
+      delete storage[counter];
+      return returnItem;
+    }
   };
 
   someInstance.size = function() {
-    return Object.keys(storage).length;
+    return counter;
   };
 
   return someInstance;

@@ -3,27 +3,26 @@ class Queue {
   // but try not not reference your old code in writing the new style.
   constructor() {
     this.storage = {};
+    this.counterLowerLimit = 0;
+    this.counterUpperLimit = 0;
   }
 
   enqueue (value) {
-    var keys = Object.keys(this);
-    keys.pop();
-    var newKey = parseInt(keys.pop()) + 1;
-    if (isNaN(newKey)) {
-      newKey = 0;
-    }
-    this[newKey] = value;
+    this.storage[this.counterUpperLimit] = value;
+    this.counterUpperLimit++;
   }
 
   dequeue () {
-    var removeKey = parseInt(Object.keys(this).shift());
-    var removeItem = this[removeKey];
-    delete this[removeKey];
-    return removeItem;
+    if (this.counterUpperLimit - this.counterLowerLimit > 0) {
+      var returnItem = this.storage[this.counterLowerLimit];
+      delete this.storage[this.counterLowerLimit];
+      this.counterLowerLimit++;
+      return returnItem;
+    }
   }
 
   size () {
-    return Math.max(0, Object.keys(this).length - 1);
+    return this.counterUpperLimit - this.counterLowerLimit;
   }
 
 }

@@ -37,4 +37,19 @@ describe('binarySearchTree', function() {
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5, 2, 3, 7]);
   });
+
+  // added tests
+  it('should handle string inputs', function() {
+    stringBST = BinarySearchTree('c');
+    stringBST.insert('h');
+    stringBST.insert('a');
+    expect(stringBST.value).to.equal('c');
+    expect(stringBST.left.value).to.equal('a');
+    expect(stringBST.right.value).to.equal('h');
+  });
+
+  it('should handle only one type of input per master tree', function() {
+    stringBST = BinarySearchTree('c');
+    expect(function() { stringBST.insert(3) }).throws();
+  });
 });
